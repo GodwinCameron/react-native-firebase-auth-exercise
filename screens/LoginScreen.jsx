@@ -1,13 +1,18 @@
 import { TextInput, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
+import { handleLogin } from '../services/authService';
 
-const LoginScreen = () => {
+const LoginScreen = (props) => {
+
+  const {setCreatingAccount} = props;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  //   TODO: Login Function
-  const login = () => {}
+  //Login Function
+  const login = () => {
+    handleLogin(email, password);
+  }
 
   return (
     <SafeAreaView >
@@ -32,7 +37,9 @@ const LoginScreen = () => {
             <Text style={styles.buttonText}>Login Button</Text>
         </TouchableOpacity>
 
-        {/* TODO: Add Register Navigation */}
+        <TouchableOpacity onPress={() => setCreatingAccount(true)}>
+            <Text style={styles.toLoginText}>Don't have an Account? Register here</Text>
+        </TouchableOpacity>
 
       </View>  
       
@@ -44,7 +51,8 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20
+        padding: 20,
+        paddingTop: 150,
     },
     inputField: {
         height: 40,
@@ -61,5 +69,11 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: 'white'
-    }
+    },
+    toLoginText: {
+      textAlign: "center",
+      marginTop: 20,
+      color: "blue",
+      textDecorationLine: "underline",
+    },
 })
